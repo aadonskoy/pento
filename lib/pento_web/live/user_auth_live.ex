@@ -6,7 +6,7 @@ defmodule PentoWeb.UserAuthLive do
     user = Accounts.get_user_by_session_token(user_token)
     socket =
       socket
-      |> assign_new(:current_user, user)
+      |> assign_new(:current_user, fn -> user end)
     if socket.assigns.current_user do
       {:cont, socket}
     else
