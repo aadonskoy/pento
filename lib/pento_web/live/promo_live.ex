@@ -36,7 +36,6 @@ defmodule PentoWeb.PromoLive do
       |> Promo.change_recipient(recipient_params)
       |> Map.put(:action, :validate)
 
-
     if changeset.valid? do
       Promo.send_promo(recipient, recipient_params)
 
