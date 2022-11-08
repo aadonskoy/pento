@@ -88,4 +88,18 @@ defmodule PentoWeb.ProductLive.FormComponent do
     File.cp!(path, dest)
     {:ok, Routes.static_path(socket, "/images/#{Path.basename(dest)}")}
   end
+
+  def upload_image_error(%{image: %{errors: errors}}, entry) when length(errors) > 0 do
+    {_, msg} =
+      Enum.find(errors, fn {ref, _} ->
+        ref == entry.ref || ref == entry.upload_ref
+      end)
+    upload_error_msg(msg)
+  end
+
+  def upload_image_error(_, _), do: ""
+
+  defp upload_error_msg(:not_accepted), do: "Invalid file type"
+  defp upload_error_msg(:too_many_files), do: "Too many files"
+  defp upload_error_msg(:too_large), do: "File exceeds max size"
 end
