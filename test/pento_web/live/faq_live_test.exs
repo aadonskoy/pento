@@ -2,6 +2,7 @@ defmodule PentoWeb.FaqLiveTest do
   use PentoWeb.ConnCase
 
   import Phoenix.LiveViewTest
+  import Pento.AccountsFixtures
   import Pento.CommentsFixtures
 
   @create_attrs %{answer: "some answer", question: "some question", vote: 42}
@@ -14,16 +15,23 @@ defmodule PentoWeb.FaqLiveTest do
   end
 
   describe "Index" do
-    setup [:create_faq]
+    setup do
+      %{
+        faq: faq_fixture(),
+        user: user_fixture()
+      }
+    end
 
-    test "lists all faqs", %{conn: conn, faq: faq} do
+    test "lists all faqs", %{conn: conn, faq: faq, user: user} do
+      conn = log_in_user(conn, user)
       {:ok, _index_live, html} = live(conn, Routes.faq_index_path(conn, :index))
 
       assert html =~ "Listing Faqs"
       assert html =~ faq.answer
     end
 
-    test "saves new faq", %{conn: conn} do
+    test "saves new faq", %{conn: conn, user: user} do
+      conn = log_in_user(conn, user)
       {:ok, index_live, _html} = live(conn, Routes.faq_index_path(conn, :index))
 
       assert index_live |> element("a", "New Faq") |> render_click() =~
@@ -45,7 +53,8 @@ defmodule PentoWeb.FaqLiveTest do
       assert html =~ "some answer"
     end
 
-    test "updates faq in listing", %{conn: conn, faq: faq} do
+    test "updates faq in listing", %{conn: conn, faq: faq, user: user} do
+      conn = log_in_user(conn, user)
       {:ok, index_live, _html} = live(conn, Routes.faq_index_path(conn, :index))
 
       assert index_live |> element("#faq-#{faq.id} a", "Edit") |> render_click() =~
@@ -67,7 +76,8 @@ defmodule PentoWeb.FaqLiveTest do
       assert html =~ "some updated answer"
     end
 
-    test "deletes faq in listing", %{conn: conn, faq: faq} do
+    test "deletes faq in listing", %{conn: conn, faq: faq, user: user} do
+      conn = log_in_user(conn, user)
       {:ok, index_live, _html} = live(conn, Routes.faq_index_path(conn, :index))
 
       assert index_live |> element("#faq-#{faq.id} a", "Delete") |> render_click()
@@ -76,16 +86,23 @@ defmodule PentoWeb.FaqLiveTest do
   end
 
   describe "Show" do
-    setup [:create_faq]
+    setup do
+      %{
+        faq: faq_fixture(),
+        user: user_fixture()
+      }
+    end
 
-    test "displays faq", %{conn: conn, faq: faq} do
+    test "displays faq", %{conn: conn, faq: faq, user: user} do
+      conn = log_in_user(conn, user)
       {:ok, _show_live, html} = live(conn, Routes.faq_show_path(conn, :show, faq))
 
       assert html =~ "Show Faq"
       assert html =~ faq.answer
     end
 
-    test "updates faq within modal", %{conn: conn, faq: faq} do
+    test "updates faq within modal", %{conn: conn, faq: faq, user: user} do
+      conn = log_in_user(conn, user)
       {:ok, show_live, _html} = live(conn, Routes.faq_show_path(conn, :show, faq))
 
       assert show_live |> element("a", "Edit") |> render_click() =~
