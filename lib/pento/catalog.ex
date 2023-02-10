@@ -107,4 +107,8 @@ defmodule Pento.Catalog do
     |> Product.price_decrease_changeset(price_decrease)
     |> Repo.update()
   end
+
+  def get_by_sku(sku) do
+    Repo.get_by(Product, sku: sku)
+  end
 end
