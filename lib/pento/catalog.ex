@@ -111,4 +111,9 @@ defmodule Pento.Catalog do
   def get_by_sku(sku) do
     Repo.get_by(Product, sku: sku)
   end
+
+  def list_products_with_user_rating(user) do
+    Product.Query.with_user_ratings(user)
+    |> Repo.all()
+  end
 end
