@@ -24,7 +24,7 @@ defmodule PentoWeb.DemographicLive.Form do
 
         <%= hidden_input f, :user_id %>
 
-        <%= submit "Save", phx_disable_width: "Saving..." %>
+        <%= submit "Save", phx_disable_with: "Saving..." %>
       </.form>
     </div>
     """
