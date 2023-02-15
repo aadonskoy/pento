@@ -22,6 +22,10 @@ defmodule PentoWeb.DemographicLive.Form do
         <%= select f, :year_of_birth, Enum.reverse(1940..2020) %>
         <%= error_tag f, :year_of_birth %>
 
+        <%= label f, :education %>
+        <%= select f, :education, ["high school", "bachelor's degree", "graduate degree", "other"] %>
+        <%= error_tag f, :education %>
+
         <%= hidden_input f, :user_id %>
 
         <%= submit "Save", phx_disable_with: "Saving..." %>
