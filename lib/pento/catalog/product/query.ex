@@ -46,6 +46,8 @@ defmodule Pento.Catalog.Product.Query do
     |> join(:left, [p, r, u, d], d in Demographic, on: d.user_id == u.id)
   end
 
+  # Age group filter
+
   def filter_by_age_group(query \\ base(), filter) do
     query
     |> apply_age_group_filter(filter)
@@ -80,6 +82,22 @@ defmodule Pento.Catalog.Product.Query do
   end
 
   defp apply_age_group_filter(query, _filter) do
+    query
+  end
+
+  # Gender group filter
+
+  def filter_by_gender_group(query \\ base(), filter) do
+    query
+    |> apply_gender_group_filter(filter)
+  end
+
+  def apply_gender_group_filter(query, filter) when filter in ["female", "male", "other", "prefer not to say"] do
+    query
+    |> where([p, r, u, d], d.gender == ^filter)
+  end
+
+  def apply_gender_group_filter(query, _filter) do
     query
   end
 
