@@ -73,11 +73,11 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
   def handle_event(
     "age_group_filter",
     %{"age_group_filter" => age_group_filter},
-    %{assigns: %{gender_group_filter: gender_group_filter}} = socket) do
+    socket) do
     {:noreply,
       socket
       |> assign_age_group_filter(age_group_filter)
-      |> assign_gender_group_filter(gender_group_filter)
+      |> assign_gender_group_filter()
       |> assign_products_with_average_ratings()
       |> assign_dataset()
       |> assign_chart()
@@ -89,10 +89,10 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
   def handle_event(
     "gender_group_filter",
     %{"gender_group_filter" => gender_group_filter},
-    %{assigns: %{age_group_filter: age_group_filter}} = socket) do
+    socket) do
     {:noreply,
       socket
-      |> assign_age_group_filter(age_group_filter)
+      |> assign_age_group_filter()
       |> assign_gender_group_filter(gender_group_filter)
       |> assign_products_with_average_ratings()
       |> assign_dataset()
@@ -139,14 +139,28 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     |> assign(:chart, make_bar_chart(dataset))
   end
 
-  defp assign_age_group_filter(socket, age_group \\ "all") do
-    socket
-    |> assign(:age_group_filter, age_group)
+  defp assign_age_group_filter(socket, age_group) do
+    assign(socket, :age_group_filter, age_group)
   end
 
-  defp assign_gender_group_filter(socket, gender_group \\ "all") do
-    socket
-    |> assign(:gender_group_filter, gender_group)
+  defp assign_age_group_filter(%{assigns: %{age_group_filter: age_group}} = socket) do
+    assign(socket, :age_group_filter, age_group)
+  end
+
+  defp assign_age_group_filter(socket) do
+    assign(socket, :age_group_filter, "all")
+  end
+
+  defp assign_gender_group_filter(socket, gender_group) do
+    assign(socket, :gender_group_filter, gender_group)
+  end
+
+  defp assign_gender_group_filter(%{assigns: %{gender_group_filter: gender_group}} = socket) do
+    assign(socket, :gender_group_filter, gender_group)
+  end
+
+  defp assign_gender_group_filter(socket) do
+    assign(socket, :gender_group_filter, "all")
   end
 
   def assign_chart_svg(%{assigns: %{chart: chart}} = socket) do
