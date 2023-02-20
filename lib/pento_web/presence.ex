@@ -4,11 +4,25 @@ defmodule PentoWeb.Presence do
     pubsub_server: Pento.PubSub
 
   alias PentoWeb.Presence
-  alias Pento.Accounts
   @user_activity_topic "user_activity"
+  @survey_activity_topic "survey_activity"
 
   def track_user(pid, product, user_email) do
     Presence.track(pid, @user_activity_topic, product.name, %{users: [%{email: user_email}]})
+  end
+
+  def track_survey_users(pid, user_id) do
+    Presence.track(pid, @survey_activity_topic, user_id, %{})
+  end
+
+  def list_survey_users() do
+    Presence.list(@survey_activity_topic)
+  end
+
+  def survey_users_amount() do
+    list_survey_users()
+    |> Enum.frequencies()
+    |> Enum.count()
   end
 
   def list_products_and_users() do
