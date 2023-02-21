@@ -8,7 +8,7 @@ defmodule Pento.CatalogTest do
 
     import Pento.CatalogFixtures
 
-    @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
+    @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil, image_upload: nil}
 
     test "list_products/0 returns all products" do
       product = product_fixture()
@@ -21,12 +21,18 @@ defmodule Pento.CatalogTest do
     end
 
     test "create_product/1 with valid data creates a product" do
-      valid_attrs = %{description: "some description", name: "some name", sku: 42, unit_price: 120.5}
+      valid_attrs = %{
+        description: "some description",
+        name: "some name",
+        sku: 4234532,
+        unit_price: 120.5,
+        image_upload: image_fixture()
+      }
 
       assert {:ok, %Product{} = product} = Catalog.create_product(valid_attrs)
       assert product.description == "some description"
       assert product.name == "some name"
-      assert product.sku == 42
+      assert product.sku == 4234532
       assert product.unit_price == 120.5
     end
 
@@ -36,12 +42,12 @@ defmodule Pento.CatalogTest do
 
     test "update_product/2 with valid data updates the product" do
       product = product_fixture()
-      update_attrs = %{description: "some updated description", name: "some updated name", sku: 43, unit_price: 456.7}
+      update_attrs = %{description: "some updated description", name: "some updated name", sku: 4376043, unit_price: 456.7}
 
       assert {:ok, %Product{} = product} = Catalog.update_product(product, update_attrs)
       assert product.description == "some updated description"
       assert product.name == "some updated name"
-      assert product.sku == 43
+      assert product.sku == 4376043
       assert product.unit_price == 456.7
     end
 

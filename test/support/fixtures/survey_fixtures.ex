@@ -7,11 +7,13 @@ defmodule Pento.SurveyFixtures do
   @doc """
   Generate a demographic.
   """
-  def demographic_fixture(attrs \\ %{}) do
+  def demographic_fixture(user, attrs \\ %{}) do
     {:ok, demographic} =
       attrs
       |> Enum.into(%{
-        gender: "some gender",
+        gender: "other",
+        education: "other",
+        user_id: user.id,
         year_of_birth: 42
       })
       |> Pento.Survey.create_demographic()
@@ -22,11 +24,13 @@ defmodule Pento.SurveyFixtures do
   @doc """
   Generate a rating.
   """
-  def rating_fixture(attrs \\ %{}) do
+  def rating_fixture(user, product, attrs \\ %{}) do
     {:ok, rating} =
       attrs
       |> Enum.into(%{
-        stars: 42
+        stars: 3,
+        user_id: user.id,
+        product_id: product.id
       })
       |> Pento.Survey.create_rating()
 

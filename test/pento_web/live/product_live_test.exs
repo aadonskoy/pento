@@ -5,9 +5,13 @@ defmodule PentoWeb.ProductLiveTest do
   import Pento.AccountsFixtures
   import Pento.CatalogFixtures
 
-  @create_attrs %{description: "some description", name: "some name", sku: 42, unit_price: 120.5}
-  @update_attrs %{description: "some updated description", name: "some updated name", sku: 43, unit_price: 456.7}
+  @create_attrs %{description: "some description", name: "some name", sku: 2345642, unit_price: 120.5}
+  @update_attrs %{description: "some updated description", name: "some updated name", sku: 6534243, unit_price: 456.7}
   @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
+
+  defp upload_image() do
+    %{image_upload: upload_image_fixture()}
+  end
 
   setup(%{conn: conn}) do
     user = user_fixture()

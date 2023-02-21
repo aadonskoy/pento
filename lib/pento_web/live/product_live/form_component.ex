@@ -60,8 +60,6 @@ defmodule PentoWeb.ProductLive.FormComponent do
   end
 
   def product_params(socket, params) do
-    IO.puts "Images!!!!!"
-    IO.inspect socket.assigns.image_upload
     Map.put(params, "image_upload", socket.assigns.image_upload)
   end
 

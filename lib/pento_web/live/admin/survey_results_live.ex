@@ -61,7 +61,7 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
       socket
       |> assign(assigns)
       |> assign_age_group_filter()
-      |> assign_gender_group_filter()
+      |> assign_gender_filter()
       |> assign_products_with_average_ratings()
       |> assign_dataset()
       |> assign_chart()
@@ -77,7 +77,7 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     {:noreply,
       socket
       |> assign_age_group_filter(age_group_filter)
-      |> assign_gender_group_filter()
+      |> assign_gender_filter()
       |> assign_products_with_average_ratings()
       |> assign_dataset()
       |> assign_chart()
@@ -93,7 +93,7 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     {:noreply,
       socket
       |> assign_age_group_filter()
-      |> assign_gender_group_filter(gender_group_filter)
+      |> assign_gender_filter(gender_group_filter)
       |> assign_products_with_average_ratings()
       |> assign_dataset()
       |> assign_chart()
@@ -101,7 +101,7 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     }
   end
 
-  defp assign_products_with_average_ratings(%{assigns: %{
+  def assign_products_with_average_ratings(%{assigns: %{
     age_group_filter: age_group_filter,
     gender_group_filter: gender_group_filter
   }} = socket) do
@@ -139,27 +139,28 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     |> assign(:chart, make_bar_chart(dataset))
   end
 
-  defp assign_age_group_filter(socket, age_group) do
+  def assign_age_group_filter(socket, age_group) do
     assign(socket, :age_group_filter, age_group)
   end
 
-  defp assign_age_group_filter(%{assigns: %{age_group_filter: age_group}} = socket) do
+  def assign_age_group_filter(%{assigns: %{age_group_filter: age_group}} = socket) do
+    IO.inspect age_group
     assign(socket, :age_group_filter, age_group)
   end
 
-  defp assign_age_group_filter(socket) do
+  def assign_age_group_filter(socket) do
     assign(socket, :age_group_filter, "all")
   end
 
-  defp assign_gender_group_filter(socket, gender_group) do
+  def assign_gender_filter(socket, gender_group) do
     assign(socket, :gender_group_filter, gender_group)
   end
 
-  defp assign_gender_group_filter(%{assigns: %{gender_group_filter: gender_group}} = socket) do
+  def assign_gender_filter(%{assigns: %{gender_group_filter: gender_group}} = socket) do
     assign(socket, :gender_group_filter, gender_group)
   end
 
-  defp assign_gender_group_filter(socket) do
+  def assign_gender_filter(socket) do
     assign(socket, :gender_group_filter, "all")
   end
 
