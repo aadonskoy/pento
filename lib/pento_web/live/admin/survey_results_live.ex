@@ -32,7 +32,7 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
               for={:gender_group_filter}
               phx-change="gender_group_filter"
               phx-target={@myself}
-              id={@id}>
+              id="age-group-form">
 
               <label>Filter by gender group:</label>
               <select name="gender_group_filter" id="gender_group_filter">

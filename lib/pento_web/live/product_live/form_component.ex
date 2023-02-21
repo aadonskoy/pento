@@ -82,9 +82,9 @@ defmodule PentoWeb.ProductLive.FormComponent do
   end
 
   defp upload_static_file(%{path: path}, socket) do
-    dest = Path.join("priv/static/images", Path.basename(path))
+    dest = Path.join("priv/static/uploads", Path.basename(path))
     File.cp!(path, dest)
-    {:ok, Routes.static_path(socket, "/images/#{Path.basename(dest)}")}
+    {:ok, Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")}
   end
 
   def upload_image_error(%{image: %{errors: errors}}, entry) when length(errors) > 0 do

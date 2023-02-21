@@ -9,10 +9,6 @@ defmodule PentoWeb.ProductLiveTest do
   @update_attrs %{description: "some updated description", name: "some updated name", sku: 6534243, unit_price: 456.7}
   @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
 
-  defp upload_image() do
-    %{image_upload: upload_image_fixture()}
-  end
-
   setup(%{conn: conn}) do
     user = user_fixture()
     conn = log_in_user(conn, user)
@@ -39,6 +35,15 @@ defmodule PentoWeb.ProductLiveTest do
              |> form("#product-form", product: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
+      image =
+        index_live
+        |> file_input("#product-form", :image, [%{
+          name: "test_image.png",
+          content: File.read!("test/support/fixtures/test_image.png"),
+          type: "image/png"
+        }])
+      assert render_upload(image, "test_image.png") =~ " uploaded"
+
       {:ok, _, html} =
         index_live
         |> form("#product-form", product: @create_attrs)
@@ -60,6 +65,15 @@ defmodule PentoWeb.ProductLiveTest do
       assert index_live
              |> form("#product-form", product: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
+
+      image =
+        index_live
+        |> file_input("#product-form", :image, [%{
+          name: "test_image.png",
+          content: File.read!("test/support/fixtures/test_image.png"),
+          type: "image/png"
+        }])
+      assert render_upload(image, "test_image.png") =~ " uploaded"
 
       {:ok, _, html} =
         index_live
@@ -98,6 +112,15 @@ defmodule PentoWeb.ProductLiveTest do
       assert show_live
              |> form("#product-form", product: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
+
+      image =
+        show_live
+        |> file_input("#product-form", :image, [%{
+          name: "test_image.png",
+          content: File.read!("test/support/fixtures/test_image.png"),
+          type: "image/png"
+        }])
+      assert render_upload(image, "test_image.png") =~ " uploaded"
 
       {:ok, _, html} =
         show_live
