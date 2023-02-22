@@ -1,7 +1,7 @@
-defmodule PentoWeb.Admin.DashboardLiveTest do
+defmodule PentoWeb.RatingLive.IndexTest do
   use PentoWeb.ConnCase
-
   import Phoenix.LiveViewTest
+
   alias Pento.{Accounts, Catalog, Survey}
 
   @create_product_attrs %{
@@ -15,24 +15,9 @@ defmodule PentoWeb.Admin.DashboardLiveTest do
     education: "other",
     year_of_birth: DateTime.utc_now.year - 15
   }
-  @create_demographic_over_18_attrs %{
-    gender: "female",
-    education: "other",
-    year_of_birth: DateTime.utc_now.year - 30
-  }
   @create_user_attrs %{
     email: "test1@test.com",
     username: "user1",
-    password: "passwordpasseword"
-  }
-  @create_user2_attrs %{
-    email: "test2@test.com",
-    username: "user2",
-    password: "passwordpasseword"
-  }
-  @create_user3_attrs %{
-    email: "test3@test.com",
-    username: "user3",
     password: "passwordpasseword"
   }
 
@@ -83,36 +68,46 @@ defmodule PentoWeb.Admin.DashboardLiveTest do
     %{demographic: demographic}
   end
 
-  describe "Survey Results" do
-    setup [:register_and_log_in_user, :create_product, :create_user]
+  describe "no rating" do
+    setup [:create_user, :create_product]
+
+    setup %{user: user} do
+      demographic = create_demographic(user)
+      products = Catalog.list_products_with_user_rating (user)
+      [demographic: demographic, products: products]
+    end
+
+    test "create rating form exist", %{user: user, demographic: demographic, products: products} do
+      html = render_component(
+        &PentoWeb.RatingLive.Index.list/1,
+        current_user: user,
+        products: products,
+        demographics: demographic
+      )
+      assert html =~ "Test Game"
+      assert html =~ "<form"
+    end
+  end
+
+  describe "with rating" do
+    setup [:create_user, :create_product]
+
     setup %{user: user, product: product} do
-      create_demographic(user)
-      create_rating(user, product, 2)
-
-      user2 = user_fixture(@create_user2_attrs)
-      create_demographic(user2, @create_demographic_over_18_attrs)
-      create_rating(user2, product, 3)
-      :ok
+      demographic = create_demographic(user)
+      create_rating(user, product, 4)
+      products = Catalog.list_products_with_user_rating (user)
+      [demographic: demographic, products: products]
     end
 
-    test "it filters by age group", %{conn: conn} do
-      {:ok, view, _html} = live(conn, "/admin-dashboard")
-      params = %{"age_group_filter" => "18 and under"}
-      assert view
-        |> element("#survey-results")
-        |> render_change(params) =~ "<title>2.00</title>"
-    end
-
-    test "it updates to daiplay newly created ratings", %{conn: conn, product: product} do
-      {:ok, view, html} = live(conn, "/admin-dashboard")
-      assert html =~ "<title>2.50</title>"
-      user3 = user_fixture(@create_user3_attrs)
-      demographic_fixture(user3, @create_demographic_attrs)
-      create_rating(user3, product, 3)
-
-      send(view.pid, %{event: "rating_created"})
-      :timer.sleep(2)
-      assert render(view) =~ "<title>2.67</title>"
+    test "rating exist", %{user: user, demographic: demographic, products: products} do
+      html = render_component(
+        &PentoWeb.RatingLive.Index.list/1,
+        current_user: user,
+        products: products,
+        demographics: demographic
+      )
+      assert html =~ "Test Game"
+      assert html =~ "&#x2605; &#x2605; &#x2605; &#x2605; &#x2606;"
     end
   end
 end

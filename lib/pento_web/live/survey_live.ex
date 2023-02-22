@@ -83,7 +83,6 @@ defmodule PentoWeb.SurveyLive do
   end
 
   defp maybe_track_user(%{assigns: %{current_user: user}} = socket) do
-      IO.puts "CONNECTED!!!"
     if connected?(socket) do
       Presence.track_survey_users(self(), user.id)
     end
