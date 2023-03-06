@@ -1,6 +1,5 @@
 defmodule PentoWeb.WrongLive do
   use Phoenix.LiveView, layout: {PentoWeb.LayoutView, "live.html"}
-  alias Pento.Accounts
 
   def render(assigns) do
     ~H"""
