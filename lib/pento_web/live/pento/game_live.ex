@@ -1,17 +1,14 @@
 defmodule PentoWeb.Pento.GameLive do
   use PentoWeb, :live_view
-  alias PentoWeb.Pento.Palette
+  alias PentoWeb.Pento.Board
 
-  def mount(_params, _session, socket), do: {:ok, socket}
+  def mount(%{"puzzle" => puzzle}, _session, socket), do: {:ok, assign(socket, puzzle: puzzle)}
+
   def render(assigns) do
     ~H"""
     <section class="container">
       <h1>Welcome to Pento!</h1>
-      <Palette.draw
-        shape_names={ [:i, :l, :y, :n, :p, :w, :u, :v, :s, :f, :x, :t] }
-        fill="orange"
-        name="p"
-      />
+      <.live_component module={Board} puzzle={@puzzle} id="game" />
     </section>
     """
   end
