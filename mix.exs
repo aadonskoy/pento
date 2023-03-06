@@ -10,7 +10,8 @@ defmodule Pento.MixProject do
       compilers: [] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [plt_add_deps: :transizive]
     ]
   end
 
@@ -35,6 +36,7 @@ defmodule Pento.MixProject do
     [
       {:bcrypt_elixir, "~> 3.0"},
       {:contex, "~> 0.4.0"},
+      {:dialyxir, "~> 0.5.0", only: [:dev], runtime: false},
       {:phoenix, "~> 1.6.11"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
