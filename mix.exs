@@ -36,6 +36,7 @@ defmodule Pento.MixProject do
     [
       {:bcrypt_elixir, "~> 3.0"},
       {:contex, "~> 0.4.0"},
+      {:credo, "~> 1.6", only: [:dev], runtime: false},
       {:dialyxir, "~> 0.5.0", only: [:dev], runtime: false},
       {:phoenix, "~> 1.6.11"},
       {:phoenix_ecto, "~> 4.4"},

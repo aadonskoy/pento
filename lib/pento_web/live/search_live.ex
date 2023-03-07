@@ -69,7 +69,7 @@ defmodule PentoWeb.SearchLive do
     }
   end
 
-  def handle_event("search", %{"product" => %{ "sku" => sku } = product_params}, socket) do
+  def handle_event("search", %{"product" => %{"sku" => sku} = product_params}, socket) do
     changeset =
       %Product{}
       |> Product.search_sku_changeset(product_params)

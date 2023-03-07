@@ -144,7 +144,6 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
   end
 
   def assign_age_group_filter(%{assigns: %{age_group_filter: age_group}} = socket) do
-    IO.inspect age_group
     assign(socket, :age_group_filter, age_group)
   end
 

@@ -6,7 +6,7 @@ defmodule PentoWeb.Admin.SurveyResultsLiveTest do
   @create_product_attrs %{
     description: "test description",
     name: "Test Game",
-    sku: 4223124,
+    sku: 4_223_124,
     unit_price: 120.5
   }
   @create_user_attrs %{

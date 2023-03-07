@@ -3,7 +3,7 @@ defmodule PentoWeb.Pento.Canvas do
 
   def draw(assigns) do
     ~H"""
-    <svg viewBox="{ @viewBox }">
+    <svg viewBox={@viewBox}>
       <defs>
         <rect id="point" width="10" height="10" />
       </defs>

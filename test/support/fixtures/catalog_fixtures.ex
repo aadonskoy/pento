@@ -7,7 +7,7 @@ defmodule Pento.CatalogFixtures do
   @doc """
   Generate a unique product sku.
   """
-  def unique_product_sku, do: Enum.random(1000000..9999999)
+  def unique_product_sku, do: Enum.random(1_000_000..9_999_999)
 
   @doc """
   Generate a product.

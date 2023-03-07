@@ -5,8 +5,8 @@ defmodule PentoWeb.ProductLiveTest do
   import Pento.AccountsFixtures
   import Pento.CatalogFixtures
 
-  @create_attrs %{description: "some description", name: "some name", sku: 2345642, unit_price: 120.5}
-  @update_attrs %{description: "some updated description", name: "some updated name", sku: 6534243, unit_price: 456.7}
+  @create_attrs %{description: "some description", name: "some name", sku: 2_345_642, unit_price: 120.5}
+  @update_attrs %{description: "some updated description", name: "some updated name", sku: 6_534_243, unit_price: 456.7}
   @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
 
   setup(%{conn: conn}) do
