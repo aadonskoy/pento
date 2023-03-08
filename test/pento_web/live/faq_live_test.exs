@@ -9,11 +9,6 @@ defmodule PentoWeb.FaqLiveTest do
   @update_attrs %{answer: "some updated answer", question: "some updated question", vote: 43}
   @invalid_attrs %{answer: nil, question: nil, vote: nil}
 
-  defp create_faq(_) do
-    faq = faq_fixture()
-    %{faq: faq}
-  end
-
   describe "Index" do
     setup do
       %{

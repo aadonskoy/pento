@@ -3,7 +3,7 @@ defmodule PentoWeb.Pento.Triangle do
 
   def draw(assigns) do
     ~H"""
-    <use xlink:href="#triangle"
+    <use href="#triangle"
       x={@x}
       y={@y} transform={rotate(@rotate)}
       fill={@fill} />

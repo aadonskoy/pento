@@ -5,7 +5,7 @@ defmodule PentoWeb.Pento.Point do
 
   def draw(assigns) do
     ~H"""
-      <use xlink:href="#point"
+      <use href="#point"
         x={ convert(@x) }
         y={ convert(@y) }
         fill={ @fill }

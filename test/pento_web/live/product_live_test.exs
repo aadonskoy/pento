@@ -54,7 +54,7 @@ defmodule PentoWeb.ProductLiveTest do
       assert html =~ "some description"
     end
 
-    test "updates product in listing", %{conn: conn, product: product, user: user} do
+    test "updates product in listing", %{conn: conn, product: product} do
       {:ok, index_live, _html} = live(conn, Routes.product_index_path(conn, :index))
 
       assert index_live |> element("#product-#{product.id} a", "Edit") |> render_click() =~

@@ -31,7 +31,7 @@ defmodule Pento.SurveyTest do
     end
 
     test "create_demographic/1 with valid data creates a demographic", %{user: user} do
-      valid_attrs = %{gender: "some gender", year_of_birth: 42, user_id: user.id, gender: "other", education: "other" }
+      valid_attrs = %{year_of_birth: 42, user_id: user.id, gender: "other", education: "other" }
 
       assert {:ok, %Demographic{} = demographic} = Survey.create_demographic(valid_attrs)
       assert demographic.user_id == user.id
@@ -80,11 +80,6 @@ defmodule Pento.SurveyTest do
 
     @invalid_attrs %{stars: nil}
 
-    defp create_user(_) do
-      user = AccountsFixtures.user_fixture()
-      %{user: user}
-    end
-
     defp create_product(_) do
       product = CatalogFixtures.product_fixture()
       %{product: product}
@@ -109,7 +104,7 @@ defmodule Pento.SurveyTest do
       assert rating.stars == 2
     end
 
-    test "create_rating/1 with invalid data returns error changeset", %{user: user, product: product} do
+    test "create_rating/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Survey.create_rating(@invalid_attrs)
     end
 
