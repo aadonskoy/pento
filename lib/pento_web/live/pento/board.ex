@@ -1,8 +1,9 @@
 defmodule PentoWeb.Pento.Board do
+  @moduledoc false
+
   use PentoWeb, :live_component
 
   alias PentoWeb.Pento.{Canvas, Palette, Shape}
-  alias Pento.Game.Pentomino
   alias Pento.Game
   import PentoWeb.Pento.Colors
 

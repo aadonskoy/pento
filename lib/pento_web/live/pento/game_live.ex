@@ -14,8 +14,5 @@ defmodule PentoWeb.Pento.GameLive do
     """
   end
 
-  def mount(%{"puzzle" => puzzle}, _session, socket) do
-    IO.inspect(socket)
-    {:ok, assign(socket, puzzle: puzzle)}
-  end
+  def mount(%{"puzzle" => puzzle}, _session, socket), do: {:ok, assign(socket, puzzle: puzzle)}
 end

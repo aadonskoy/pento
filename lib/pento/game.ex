@@ -1,4 +1,6 @@
 defmodule Pento.Game do
+  @moduledoc false
+
   alias Pento.Game.{Board, Pentomino}
 
   @messages %{

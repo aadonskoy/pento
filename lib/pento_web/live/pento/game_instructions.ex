@@ -1,4 +1,6 @@
 defmodule PentoWeb.Pento.GameInstructions do
+  @moduledoc false
+
   use Phoenix.Component
 
   def show(assigns) do

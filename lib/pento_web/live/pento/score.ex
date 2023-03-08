@@ -1,4 +1,6 @@
 defmodule PentoWeb.Pento.Score do
+  @moduledoc false
+
   use Phoenix.Component
 
   def draw(assigns) do

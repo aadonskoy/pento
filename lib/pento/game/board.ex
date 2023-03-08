@@ -1,4 +1,6 @@
 defmodule Pento.Game.Board do
+  @moduledoc false
+
   alias Pento.Game.{Pentomino, Shape}
 
   defstruct [

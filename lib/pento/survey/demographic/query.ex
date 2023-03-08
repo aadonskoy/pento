@@ -1,4 +1,6 @@
 defmodule Pento.Survey.Demographic.Query do
+  @moduledoc false
+
   alias Pento.Survey.Demographic
   import Ecto.Query
 

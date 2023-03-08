@@ -1,4 +1,6 @@
 defmodule Pento.Survey.Rating do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 

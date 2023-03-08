@@ -1,4 +1,6 @@
 defmodule PentoWeb.Pento.Colors do
+  @moduledoc false
+
   def color(c), do: color(c, false)
 
   def color(_color, true), do: "#B86EF0"

@@ -1,4 +1,6 @@
 defmodule PentoWeb.Pento.ControlPanel do
+  @moduledoc false
+
   use Phoenix.Component
 
   alias PentoWeb.Pento.Triangle

@@ -1,4 +1,6 @@
 defmodule PentoWeb.Pento.Palette do
+  @moduledoc false
+
   use Phoenix.Component
 
   alias PentoWeb.Pento.{Shape, Canvas}

@@ -1,4 +1,6 @@
 defmodule Pento.Survey.Rating.Query do
+  @moduledoc false
+
   import Ecto.Query
   alias Pento.Survey.Rating
 

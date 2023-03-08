@@ -1,4 +1,6 @@
 defmodule PentoWeb.Pento.Point do
+  @moduledoc false
+
   use Phoenix.Component
 
   @width 10

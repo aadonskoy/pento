@@ -1,4 +1,6 @@
 defmodule Pento.Promo.Recipient do
+  @moduledoc false
+
   defstruct [:first_name, :email]
   @types %{first_name: :string, email: :string}
 

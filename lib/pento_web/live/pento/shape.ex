@@ -1,4 +1,6 @@
 defmodule PentoWeb.Pento.Shape do
+  @moduledoc false
+
   use Phoenix.Component
   alias PentoWeb.Pento.Point
 

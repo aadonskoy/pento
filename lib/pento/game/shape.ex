@@ -1,4 +1,6 @@
 defmodule Pento.Game.Shape do
+  @moduledoc false
+
   alias Pento.Game.Point
 
   defstruct color: :blue, name: :x, points: []

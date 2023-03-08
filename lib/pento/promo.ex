@@ -1,4 +1,6 @@
 defmodule Pento.Promo do
+  @moduledoc false
+
   alias Pento.Promo.Recipient
 
   def change_recipient(%Recipient{} = recipient, attrs \\ %{}) do
