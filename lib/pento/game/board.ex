@@ -5,7 +5,8 @@ defmodule Pento.Game.Board do
     active_pento: nil,
     completed_pentos: [],
     palette: [],
-    points: []
+    points: [],
+    score: 500
   ]
 
   def puzzles(), do: ~w[default wide widest medium tiny]a
@@ -49,7 +50,7 @@ defmodule Pento.Game.Board do
   def active?(%{active_pento: %{name: shape_name}}, shape_name), do: true
   def active?(_board, _shape_name), do: false
 
-  def pick(board, board), do: board
+  def pick(board, :board), do: board
   def pick(%{active_pento: pento} = board, sname) when not is_nil(pento) do
     if pento.name == sname do
       %{board | active_pento: nil}

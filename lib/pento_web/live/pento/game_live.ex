@@ -2,8 +2,7 @@ defmodule PentoWeb.Pento.GameLive do
   use PentoWeb, :live_view
   alias PentoWeb.Pento.{Board, GameInstructions}
 
-  def mount(%{"puzzle" => puzzle}, _session, socket), do: {:ok, assign(socket, puzzle: puzzle)}
-
+  @spec render(any) :: Phoenix.LiveView.Rendered.t()
   def render(assigns) do
     ~H"""
     <section class="container">
@@ -13,5 +12,10 @@ defmodule PentoWeb.Pento.GameLive do
       <PentoWeb.Pento.ControlPanel.draw viewBox="0 0 200 40"/>
     </section>
     """
+  end
+
+  def mount(%{"puzzle" => puzzle}, _session, socket) do
+    IO.inspect(socket)
+    {:ok, assign(socket, puzzle: puzzle)}
   end
 end

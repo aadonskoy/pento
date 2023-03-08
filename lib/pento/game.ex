@@ -18,9 +18,11 @@ defmodule Pento.Game do
     new_pento = move_fn(move).(board.active_pento)
     new_board = %{board | active_pento: new_pento}
 
-    if Board.legal_move?(new_board),
-      do: {:ok, new_board},
-      else: {:error, @messages.out_of_bounds}
+    if Board.legal_move?(new_board) do
+      {:ok, decrease_score(new_board)}
+    else
+      {:error, @messages.out_of_bounds}
+    end
   end
 
   defp move_fn(move) do
@@ -40,5 +42,10 @@ defmodule Pento.Game do
     else
       {:error, @messages.illegal_drop}
     end
+  end
+
+  def decrease_score(%{score: score} = board) when score > 0 do
+    new_score = score - 1
+    %{board | score: new_score}
   end
 end

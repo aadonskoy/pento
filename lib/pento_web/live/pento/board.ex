@@ -9,6 +9,7 @@ defmodule PentoWeb.Pento.Board do
   def render(assigns) do
     ~H"""
     <div id={@id} phx-window-keydown="key" phx-target={@myself}>
+      <PentoWeb.Pento.Score.draw score={@score} />
       <Canvas.draw viewBox="0 0 200 70">
         <%= for shape <- @shapes do %>
           <Shape.draw
@@ -33,15 +34,28 @@ defmodule PentoWeb.Pento.Board do
       |> assign_params(id, puzzle)
       |> assign_board()
       |> assign_shapes()
+      |> assign_score()
     }
   end
 
   def handle_event("pick", %{"name" => name}, socket) do
-    {:noreply, socket |> pick(name) |> assign_shapes}
+    {
+      :noreply,
+      socket
+      |> pick(name)
+      |> assign_shapes
+      |> assign_score
+    }
   end
 
   def handle_event("key", %{"key" => key}, socket) do
-    {:noreply, socket |> do_key(key) |> assign_shapes}
+    {
+      :noreply,
+      socket
+      |> do_key(key)
+      |> assign_shapes
+      |> assign_score
+    }
   end
 
   def assign_params(socket, id, puzzle) do
@@ -49,23 +63,20 @@ defmodule PentoWeb.Pento.Board do
   end
 
   def assign_board(%{assigns: %{puzzle: puzzle}} = socket) do
-    active = Pentomino.new(name: :p, location: {3, 2})
-    completed = [
-      Pentomino.new(name: :u, rotation: 270, location: {1, 2}),
-      Pentomino.new(name: :v, rotation: 90, location: {4, 2})
-    ]
     board =
       puzzle
       |> String.to_existing_atom
       |> Game.new
-      |> Map.put(:completed_pentos, completed)
-      |> Map.put(:active_pento, active)
     assign(socket, board: board)
   end
 
   def assign_shapes(%{assigns: %{board: board}} = socket) do
     shapes = Game.to_shapes(board)
     assign(socket, shapes: shapes)
+  end
+
+  def assign_score(%{assigns: %{board: %{score: score}}} = socket) do
+    assign(socket, score: score)
   end
 
   def do_key(socket, " "), do: drop(socket)
