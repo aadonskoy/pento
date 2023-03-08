@@ -6,6 +6,11 @@ defmodule Pento.Game do
     illegal_drop: "Oops! You can't drop out of bounds or an another piece."
   }
 
+  defdelegate active?(board, shape_name), to: Board
+  defdelegate new(puzzle_type), to: Board
+  defdelegate to_shapes(board), to: Board
+  defdelegate pick(pento, shape_name), to: Board
+
   def maybe_move(%{active_pento: p} = board, _m) when is_nil(p) do
     {:ok, board}
   end

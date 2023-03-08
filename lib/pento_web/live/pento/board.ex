@@ -2,7 +2,7 @@ defmodule PentoWeb.Pento.Board do
   use PentoWeb, :live_component
 
   alias PentoWeb.Pento.{Canvas, Palette, Shape}
-  alias Pento.Game.{Board, Pentomino}
+  alias Pento.Game.Pentomino
   alias Pento.Game
   import PentoWeb.Pento.Colors
 
@@ -13,7 +13,7 @@ defmodule PentoWeb.Pento.Board do
         <%= for shape <- @shapes do %>
           <Shape.draw
             points={shape.points}
-            fill={color(shape.color, Board.active?(@board, shape.name))}
+            fill={color(shape.color, Game.active?(@board, shape.name))}
             name={shape.name}
           />
         <% end %>
@@ -57,14 +57,14 @@ defmodule PentoWeb.Pento.Board do
     board =
       puzzle
       |> String.to_existing_atom
-      |> Board.new
+      |> Game.new
       |> Map.put(:completed_pentos, completed)
       |> Map.put(:active_pento, active)
     assign(socket, board: board)
   end
 
   def assign_shapes(%{assigns: %{board: board}} = socket) do
-    shapes = Board.to_shapes(board)
+    shapes = Game.to_shapes(board)
     assign(socket, shapes: shapes)
   end
 
@@ -102,6 +102,6 @@ defmodule PentoWeb.Pento.Board do
 
   defp pick(socket, name) do
     shape_name = String.to_existing_atom(name)
-    update(socket, :board, &Board.pick(&1, shape_name))
+    update(socket, :board, &Game.pick(&1, shape_name))
   end
 end
