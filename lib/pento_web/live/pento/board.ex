@@ -68,19 +68,15 @@ defmodule PentoWeb.Pento.Board do
     assign(socket, shapes: shapes)
   end
 
-  def do_key(socket, key) do
-    case key do
-      " " -> drop(socket)
-      "ArrowLeft" -> move(socket, :left)
-      "ArrowRight" -> move(socket, :right)
-      "ArrowUp" -> move(socket, :up)
-      "ArrowDown" -> move(socket, :down)
-      "Shift" -> move(socket, :rotate)
-      "Enter" -> move(socket, :flip)
-      "Space" -> drop(socket)
-      _ -> socket
-    end
-  end
+  def do_key(socket, " "), do: drop(socket)
+  def do_key(socket, "Space"), do: drop(socket)
+  def do_key(socket, "ArrowLeft"), do: move(socket, :left)
+  def do_key(socket, "ArrowRight"), do: move(socket, :right)
+  def do_key(socket, "ArrowUp"), do: move(socket, :up)
+  def do_key(socket, "ArrowDown"), do: move(socket, :down)
+  def do_key(socket, "Enter"), do: move(socket, :flip)
+  def do_key(socket, "Shift"), do: move(socket, :rotate)
+  def do_key(socket, _), do: socket
 
   def move(socket, move) do
     case Game.maybe_move(socket.assigns.board, move) do
