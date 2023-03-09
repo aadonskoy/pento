@@ -18,11 +18,11 @@ defmodule Pento.Game.PointTest do
       point
       |> Point.move({1, -1})
       |> assert_point({3, 4})
-      |> Point.transpose
+      |> Point.transpose()
       |> assert_point({4, 3})
-      |> Point.flip
+      |> Point.flip()
       |> assert_point({4, 3})
-      |> Point.reflect
+      |> Point.reflect()
       |> assert_point({2, 3})
       |> Point.rotate(0)
       |> assert_point({2, 3})
@@ -32,7 +32,7 @@ defmodule Pento.Game.PointTest do
       |> assert_point({3, 2})
       |> Point.rotate(270)
       |> assert_point({4, 3})
-      |> Point.center
+      |> Point.center()
       |> assert_point({1, 0})
       |> Point.maybe_reflect(false)
       |> assert_point({1, 0})

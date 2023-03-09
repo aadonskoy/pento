@@ -13,12 +13,12 @@ defmodule PentoWeb.Admin.DashboardLiveTest do
   @create_demographic_attrs %{
     gender: "female",
     education: "other",
-    year_of_birth: DateTime.utc_now.year - 15
+    year_of_birth: DateTime.utc_now().year - 15
   }
   @create_demographic_over_18_attrs %{
     gender: "female",
     education: "other",
-    year_of_birth: DateTime.utc_now.year - 30
+    year_of_birth: DateTime.utc_now().year - 30
   }
   @create_user_attrs %{
     email: "test1@test.com",
@@ -50,16 +50,19 @@ defmodule PentoWeb.Admin.DashboardLiveTest do
     attrs =
       attrs
       |> Map.merge(%{user_id: user.id})
+
     {:ok, demographic} = Survey.create_demographic(attrs)
     demographic
   end
 
   defp rating_fixture(user, product, stars) do
-    {:ok, rating} = Survey.create_rating(%{
-      stars: stars,
-      user_id: user.id,
-      product_id: product.id
-    })
+    {:ok, rating} =
+      Survey.create_rating(%{
+        stars: stars,
+        user_id: user.id,
+        product_id: product.id
+      })
+
     rating
   end
 
@@ -85,6 +88,7 @@ defmodule PentoWeb.Admin.DashboardLiveTest do
 
   describe "Survey Results" do
     setup [:register_and_log_in_user, :create_product, :create_user]
+
     setup %{user: user, product: product} do
       create_demographic(user)
       create_rating(user, product, 2)
@@ -98,9 +102,10 @@ defmodule PentoWeb.Admin.DashboardLiveTest do
     test "it filters by age group", %{conn: conn} do
       {:ok, view, _html} = live(conn, "/admin-dashboard")
       params = %{"age_group_filter" => "18 and under"}
+
       assert view
-        |> element("#survey-results")
-        |> render_change(params) =~ "<title>2.00</title>"
+             |> element("#survey-results")
+             |> render_change(params) =~ "<title>2.00</title>"
     end
 
     test "it updates to daiplay newly created ratings", %{conn: conn, product: product} do

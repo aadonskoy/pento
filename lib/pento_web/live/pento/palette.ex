@@ -10,7 +10,7 @@ defmodule PentoWeb.Pento.Palette do
   def draw(assigns) do
     shapes =
       assigns.shape_names
-      |> Enum.with_index
+      |> Enum.with_index()
       |> Enum.map(&pentomino/1)
 
     assigns = assign(assigns, shapes: shapes)
@@ -34,6 +34,6 @@ defmodule PentoWeb.Pento.Palette do
     {x, y} = {rem(i, 6) * 4 + 3, div(i, 6) * 5 + 3}
 
     Pentomino.new(name: name, location: {x, y})
-    |> Pentomino.to_shape
+    |> Pentomino.to_shape()
   end
 end

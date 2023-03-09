@@ -16,7 +16,8 @@ defmodule PentoWeb.ProductLive.FormComponent do
        max_entries: 1,
        max_file_size: 9_000_000,
        auto_upload: true,
-       progress: &handle_progress/3)}
+       progress: &handle_progress/3
+     )}
   end
 
   @impl true
@@ -65,6 +66,7 @@ defmodule PentoWeb.ProductLive.FormComponent do
 
   defp handle_progress(:image, entry, socket) do
     :timer.sleep(200)
+
     if entry.done? do
       path =
         consume_uploaded_entry(
@@ -72,10 +74,11 @@ defmodule PentoWeb.ProductLive.FormComponent do
           entry,
           &upload_static_file(&1, socket)
         )
+
       {:noreply,
-        socket
-        |> put_flash(:info, "file #{entry.client_name} uploaded")
-        |> assign(:image_upload, path)}
+       socket
+       |> put_flash(:info, "file #{entry.client_name} uploaded")
+       |> assign(:image_upload, path)}
     else
       {:noreply, socket}
     end
@@ -92,6 +95,7 @@ defmodule PentoWeb.ProductLive.FormComponent do
       Enum.find(errors, fn {ref, _} ->
         ref == entry.ref || ref == entry.upload_ref
       end)
+
     upload_error_msg(msg)
   end
 

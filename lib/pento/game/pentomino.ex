@@ -5,12 +5,10 @@ defmodule Pento.Game.Pentomino do
 
   @default_location {8, 8}
 
-  defstruct [
-    name: :i,
-    rotation: 0,
-    reflected: false,
-    location: @default_location
-  ]
+  defstruct name: :i,
+            rotation: 0,
+            reflected: false,
+            location: @default_location
 
   def new(fields \\ []), do: __struct__(fields)
 

@@ -42,7 +42,13 @@ defmodule Pento.CatalogTest do
 
     test "update_product/2 with valid data updates the product" do
       product = product_fixture()
-      update_attrs = %{description: "some updated description", name: "some updated name", sku: 4_376_043, unit_price: 456.7}
+
+      update_attrs = %{
+        description: "some updated description",
+        name: "some updated name",
+        sku: 4_376_043,
+        unit_price: 456.7
+      }
 
       assert {:ok, %Product{} = product} = Catalog.update_product(product, update_attrs)
       assert product.description == "some updated description"

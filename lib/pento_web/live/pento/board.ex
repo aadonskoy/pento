@@ -31,12 +31,11 @@ defmodule PentoWeb.Pento.Board do
 
   def update(%{puzzle: puzzle, id: id}, socket) do
     {:ok,
-      socket
-      |> assign_params(id, puzzle)
-      |> assign_board()
-      |> assign_shapes()
-      |> assign_score()
-    }
+     socket
+     |> assign_params(id, puzzle)
+     |> assign_board()
+     |> assign_shapes()
+     |> assign_score()}
   end
 
   def handle_event("pick", %{"name" => name}, socket) do
@@ -66,8 +65,9 @@ defmodule PentoWeb.Pento.Board do
   def assign_board(%{assigns: %{puzzle: puzzle}} = socket) do
     board =
       puzzle
-      |> String.to_existing_atom
-      |> Game.new
+      |> String.to_existing_atom()
+      |> Game.new()
+
     assign(socket, board: board)
   end
 
@@ -94,6 +94,7 @@ defmodule PentoWeb.Pento.Board do
     case Game.maybe_move(socket.assigns.board, move) do
       {:error, message} ->
         put_flash(socket, :info, message)
+
       {:ok, board} ->
         socket |> assign(board: board) |> assign_shapes
     end
@@ -103,6 +104,7 @@ defmodule PentoWeb.Pento.Board do
     case Game.maybe_drop(socket.assigns.board) do
       {:error, message} ->
         put_flash(socket, :info, message)
+
       {:ok, board} ->
         socket |> assign(board: board) |> assign_shapes
     end

@@ -20,7 +20,10 @@ defmodule PentoWeb.ProductLive.Show do
      |> assign(:product, Catalog.get_product!(id))}
   end
 
-  defp maybe_track_user(product, %{assigns: %{live_action: :show, current_user: current_user}} = socket) do
+  defp maybe_track_user(
+         product,
+         %{assigns: %{live_action: :show, current_user: current_user}} = socket
+       ) do
     if connected?(socket) do
       Presence.track_user(self(), product, current_user.email)
     end

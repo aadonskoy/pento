@@ -19,7 +19,12 @@ defmodule Pento.Survey.Demographic do
     |> cast(attrs, [:gender, :year_of_birth, :education, :user_id])
     |> validate_required([:gender, :year_of_birth, :education, :user_id])
     |> validate_inclusion(:gender, ["male", "female", "other", "prefer not to say"])
-    |> validate_inclusion(:education, ["high school", "bachelor's degree", "graduate degree", "other"])
+    |> validate_inclusion(:education, [
+      "high school",
+      "bachelor's degree",
+      "graduate degree",
+      "other"
+    ])
     |> unique_constraint(:user_id)
   end
 end

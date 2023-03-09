@@ -1,10 +1,12 @@
 defmodule PentoWeb.Admin.DashboardLive do
   use PentoWeb, :live_view
+
   alias PentoWeb.Admin.{
     UserActivityLive,
     SurveyResultsLive,
     SurveyActivityLive
   }
+
   alias PentoWeb.Endpoint
 
   @survey_results_topic "survey_results"
@@ -41,10 +43,10 @@ defmodule PentoWeb.Admin.DashboardLive do
     end
 
     {:ok,
-      socket
-      |> assign(:survey_results_component_id, "survey-results")
-      |> assign(:user_activity_component_id, "user-activity")
-      |> assign(:survey_activity_component_id, "survey-activity")}
+     socket
+     |> assign(:survey_results_component_id, "survey-results")
+     |> assign(:user_activity_component_id, "user-activity")
+     |> assign(:survey_activity_component_id, "survey-activity")}
   end
 
   @impl true
@@ -57,10 +59,14 @@ defmodule PentoWeb.Admin.DashboardLive do
   def handle_info(%{event: "presence_diff"}, socket) do
     send_update(
       UserActivityLive,
-      id: socket.assigns.user_activity_component_id)
+      id: socket.assigns.user_activity_component_id
+    )
+
     send_update(
       SurveyActivityLive,
-      id: socket.assigns.survey_activity_component_id)
+      id: socket.assigns.survey_activity_component_id
+    )
+
     {:noreply, socket}
   end
 end

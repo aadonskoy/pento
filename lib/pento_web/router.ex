@@ -96,6 +96,7 @@ defmodule PentoWeb.Router do
       live "/faqs/:id", FaqLive.Show, :show
       live "/faqs/:id/show/edit", FaqLive.Show, :edit
     end
+
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email

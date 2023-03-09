@@ -58,53 +58,56 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
   @impl true
   def update(assigns, socket) do
     {:ok,
-      socket
-      |> assign(assigns)
-      |> assign_age_group_filter()
-      |> assign_gender_filter()
-      |> assign_products_with_average_ratings()
-      |> assign_dataset()
-      |> assign_chart()
-      |> assign_chart_svg()
-    }
+     socket
+     |> assign(assigns)
+     |> assign_age_group_filter()
+     |> assign_gender_filter()
+     |> assign_products_with_average_ratings()
+     |> assign_dataset()
+     |> assign_chart()
+     |> assign_chart_svg()}
   end
 
   @impl true
   def handle_event(
-    "age_group_filter",
-    %{"age_group_filter" => age_group_filter},
-    socket) do
+        "age_group_filter",
+        %{"age_group_filter" => age_group_filter},
+        socket
+      ) do
     {:noreply,
-      socket
-      |> assign_age_group_filter(age_group_filter)
-      |> assign_gender_filter()
-      |> assign_products_with_average_ratings()
-      |> assign_dataset()
-      |> assign_chart()
-      |> assign_chart_svg()
-    }
+     socket
+     |> assign_age_group_filter(age_group_filter)
+     |> assign_gender_filter()
+     |> assign_products_with_average_ratings()
+     |> assign_dataset()
+     |> assign_chart()
+     |> assign_chart_svg()}
   end
 
   @impl true
   def handle_event(
-    "gender_group_filter",
-    %{"gender_group_filter" => gender_group_filter},
-    socket) do
+        "gender_group_filter",
+        %{"gender_group_filter" => gender_group_filter},
+        socket
+      ) do
     {:noreply,
-      socket
-      |> assign_age_group_filter()
-      |> assign_gender_filter(gender_group_filter)
-      |> assign_products_with_average_ratings()
-      |> assign_dataset()
-      |> assign_chart()
-      |> assign_chart_svg()
-    }
+     socket
+     |> assign_age_group_filter()
+     |> assign_gender_filter(gender_group_filter)
+     |> assign_products_with_average_ratings()
+     |> assign_dataset()
+     |> assign_chart()
+     |> assign_chart_svg()}
   end
 
-  def assign_products_with_average_ratings(%{assigns: %{
-    age_group_filter: age_group_filter,
-    gender_group_filter: gender_group_filter
-  }} = socket) do
+  def assign_products_with_average_ratings(
+        %{
+          assigns: %{
+            age_group_filter: age_group_filter,
+            gender_group_filter: gender_group_filter
+          }
+        } = socket
+      ) do
     assign(
       socket,
       :products_with_average_ratings,
@@ -123,10 +126,12 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
   end
 
   def assign_dataset(
-    %{assigns: %{
-      products_with_average_ratings: products_with_average_ratings
-    }} = socket
-  ) do
+        %{
+          assigns: %{
+            products_with_average_ratings: products_with_average_ratings
+          }
+        } = socket
+      ) do
     socket
     |> assign(
       :dataset,

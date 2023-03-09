@@ -15,8 +15,8 @@ defmodule PentoWeb.Admin.SurveyActivityLive do
   @impl true
   def update(_assigns, socket) do
     {:ok,
-      socket
-      |> assign_survey_activity()}
+     socket
+     |> assign_survey_activity()}
   end
 
   def assign_survey_activity(socket) do

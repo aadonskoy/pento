@@ -57,6 +57,7 @@ defmodule Pento.Catalog.Product.Query do
 
   defp apply_age_group_filter(query, "18 and under") do
     birth_year = DateTime.utc_now().year - 18
+
     query
     |> where([p, r, u, d], d.year_of_birth >= ^birth_year)
   end
@@ -64,21 +65,30 @@ defmodule Pento.Catalog.Product.Query do
   defp apply_age_group_filter(query, "18 to 25") do
     birth_year_max = DateTime.utc_now().year - 18
     birth_year_min = DateTime.utc_now().year - 25
+
     query
-    |> where([p, r, u, d], d.year_of_birth >= ^birth_year_min and
-      d.year_of_birth <= ^birth_year_max)
+    |> where(
+      [p, r, u, d],
+      d.year_of_birth >= ^birth_year_min and
+        d.year_of_birth <= ^birth_year_max
+    )
   end
 
   defp apply_age_group_filter(query, "25 to 35") do
     birth_year_max = DateTime.utc_now().year - 25
     birth_year_min = DateTime.utc_now().year - 35
+
     query
-    |> where([p, r, u, d], d.year_of_birth >= ^birth_year_min and
-      d.year_of_birth <= ^birth_year_max)
+    |> where(
+      [p, r, u, d],
+      d.year_of_birth >= ^birth_year_min and
+        d.year_of_birth <= ^birth_year_max
+    )
   end
 
   defp apply_age_group_filter(query, "35 and up") do
     birth_year = DateTime.utc_now().year - 35
+
     query
     |> where([p, r, u, d], d.year_of_birth <= ^birth_year)
   end
@@ -94,7 +104,8 @@ defmodule Pento.Catalog.Product.Query do
     |> apply_gender_group_filter(filter)
   end
 
-  def apply_gender_group_filter(query, filter) when filter in ["female", "male", "other", "prefer not to say"] do
+  def apply_gender_group_filter(query, filter)
+      when filter in ["female", "male", "other", "prefer not to say"] do
     query
     |> where([p, r, u, d], d.gender == ^filter)
   end

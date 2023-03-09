@@ -4,19 +4,19 @@ defmodule Pento.Game.PentominoTest do
 
   describe "pentomino" do
     test "operations" do
-      Pentomino.new
+      Pentomino.new()
       |> assert_pentomino(:i)
-      |> Pentomino.rotate
+      |> Pentomino.rotate()
       |> assert_pentomino(:i, 90)
-      |> Pentomino.rotate
+      |> Pentomino.rotate()
       |> assert_pentomino(:i, 180)
-      |> Pentomino.rotate
+      |> Pentomino.rotate()
       |> assert_pentomino(:i, 270)
-      |> Pentomino.rotate
+      |> Pentomino.rotate()
       |> assert_pentomino(:i, 0)
-      |> Pentomino.flip
+      |> Pentomino.flip()
       |> assert_pentomino(:i, 0, true)
-      |> Pentomino.up
+      |> Pentomino.up()
       |> assert_pentomino(:i, 0, true, {8, 7})
     end
   end
@@ -27,17 +27,35 @@ defmodule Pento.Game.PentominoTest do
   end
 
   defp assert_pentomino(pentomino, name, rotation) do
-    assert pentomino == %Pentomino{name: name, rotation: rotation, reflected: false, location: {8, 8}}
+    assert pentomino == %Pentomino{
+             name: name,
+             rotation: rotation,
+             reflected: false,
+             location: {8, 8}
+           }
+
     pentomino
   end
 
   defp assert_pentomino(pentomino, name, rotation, reflected) do
-    assert pentomino == %Pentomino{name: name, rotation: rotation, reflected: reflected, location: {8, 8}}
+    assert pentomino == %Pentomino{
+             name: name,
+             rotation: rotation,
+             reflected: reflected,
+             location: {8, 8}
+           }
+
     pentomino
   end
 
   defp assert_pentomino(pentomino, name, rotation, reflected, location) do
-    assert pentomino == %Pentomino{name: name, rotation: rotation, reflected: reflected, location: location}
+    assert pentomino == %Pentomino{
+             name: name,
+             rotation: rotation,
+             reflected: reflected,
+             location: location
+           }
+
     pentomino
   end
 end

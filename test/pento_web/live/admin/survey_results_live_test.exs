@@ -22,12 +22,12 @@ defmodule PentoWeb.Admin.SurveyResultsLiveTest do
   @create_demographic_attrs %{
     gender: "female",
     education: "other",
-    year_of_birth: DateTime.utc_now.year - 15
+    year_of_birth: DateTime.utc_now().year - 15
   }
   @create_demographic2_attrs %{
     gender: "male",
     education: "other",
-    year_of_birth: DateTime.utc_now.year - 30
+    year_of_birth: DateTime.utc_now().year - 30
   }
 
   defp product_fixture do
@@ -44,16 +44,19 @@ defmodule PentoWeb.Admin.SurveyResultsLiveTest do
     attrs =
       attrs
       |> Map.merge(%{user_id: user.id})
+
     {:ok, demographic} = Survey.create_demographic(attrs)
     demographic
   end
 
   defp rating_fixture(stars, user, product) do
-    {:ok, rating} = Survey.create_rating(%{
-      stars: stars,
-      user_id: user.id,
-      product_id: product.id
-    })
+    {:ok, rating} =
+      Survey.create_rating(%{
+        stars: stars,
+        user_id: user.id,
+        product_id: product.id
+      })
+
     rating
   end
 
@@ -97,16 +100,19 @@ defmodule PentoWeb.Admin.SurveyResultsLiveTest do
         |> SurveyResultsLive.assign_age_group_filter()
         |> SurveyResultsLive.assign_gender_filter()
         |> SurveyResultsLive.assign_products_with_average_ratings()
+
       assert socket.assigns.products_with_average_ratings == [{"Test Game", 0}]
     end
 
     test "rating exist", %{socket: socket, product: product, user: user} do
       create_rating(2, user, product)
+
       socket =
         socket
         |> SurveyResultsLive.assign_age_group_filter()
         |> SurveyResultsLive.assign_gender_filter()
         |> SurveyResultsLive.assign_products_with_average_ratings()
+
       assert socket.assigns.products_with_average_ratings == [{"Test Game", 2.0}]
     end
 
@@ -114,7 +120,8 @@ defmodule PentoWeb.Admin.SurveyResultsLiveTest do
       socket: socket,
       user: user,
       product: product,
-      user2: user2} do
+      user2: user2
+    } do
       create_rating(2, user, product)
       create_rating(3, user2, product)
 

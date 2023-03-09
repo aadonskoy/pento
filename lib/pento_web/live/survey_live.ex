@@ -30,6 +30,7 @@ defmodule PentoWeb.SurveyLive do
   @impl true
   def mount(_params, _sessions, socket) do
     maybe_track_user(socket)
+
     {
       :ok,
       socket
@@ -38,12 +39,12 @@ defmodule PentoWeb.SurveyLive do
     }
   end
 
-@impl true
+  @impl true
   def handle_info({:created_demographic, demographic}, socket) do
     {:noreply, handle_demographic_create(socket, demographic)}
   end
 
-@impl true
+  @impl true
   def handle_info({:created_rating, updated_product, product_index}, socket) do
     {:noreply, handle_rating_created(socket, updated_product, product_index)}
   end
@@ -55,10 +56,10 @@ defmodule PentoWeb.SurveyLive do
   end
 
   def handle_rating_created(
-    %{assigns: %{products: products}} = socket,
-    updated_product,
-    product_index) do
-
+        %{assigns: %{products: products}} = socket,
+        updated_product,
+        product_index
+      ) do
     Endpoint.broadcast(@survey_results_topic, "rating_created", %{})
 
     socket

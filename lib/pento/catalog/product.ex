@@ -39,8 +39,9 @@ defmodule Pento.Catalog.Product do
   end
 
   def validate_num_of_digits(changeset, field, num) do
-    validate_change(changeset, field, fn(_, value) ->
+    validate_change(changeset, field, fn _, value ->
       digits_num = length(Integer.digits(value))
+
       if digits_num == num do
         []
       else

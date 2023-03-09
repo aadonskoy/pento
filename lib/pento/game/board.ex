@@ -3,13 +3,11 @@ defmodule Pento.Game.Board do
 
   alias Pento.Game.{Pentomino, Shape}
 
-  defstruct [
-    active_pento: nil,
-    completed_pentos: [],
-    palette: [],
-    points: [],
-    score: 500
-  ]
+  defstruct active_pento: nil,
+            completed_pentos: [],
+            palette: [],
+            points: [],
+            score: 500
 
   def puzzles(), do: ~w[default wide widest medium tiny]a
 
@@ -37,22 +35,25 @@ defmodule Pento.Game.Board do
 
   def to_shapes(board) do
     board_shape = to_shape(board)
+
     pento_shapes =
-      [board.active_pento|board.completed_pentos]
-      |> Enum.reverse
+      [board.active_pento | board.completed_pentos]
+      |> Enum.reverse()
       |> Enum.filter(& &1)
       |> Enum.map(&Pentomino.to_shape/1)
 
-    [board_shape|pento_shapes]
+    [board_shape | pento_shapes]
   end
 
   def active?(board, shape_name) when is_binary(shape_name) do
     active?(board, String.to_atom(shape_name))
   end
+
   def active?(%{active_pento: %{name: shape_name}}, shape_name), do: true
   def active?(_board, _shape_name), do: false
 
   def pick(board, :board), do: board
+
   def pick(%{active_pento: pento} = board, sname) when not is_nil(pento) do
     if pento.name == sname do
       %{board | active_pento: nil}
@@ -60,13 +61,14 @@ defmodule Pento.Game.Board do
       board
     end
   end
+
   def pick(board, shape_name) do
     active =
       board.completed_pentos
       |> Enum.find(&(&1.name == shape_name))
       |> Kernel.||(new_pento(board, shape_name))
 
-    completed = Enum.filter(board.completed_pentos, & &1.name != shape_name)
+    completed = Enum.filter(board.completed_pentos, &(&1.name != shape_name))
 
     %{board | active_pento: active, completed_pentos: completed}
   end
@@ -83,6 +85,7 @@ defmodule Pento.Game.Board do
   defp midpoint(i), do: round(Enum.max(i) / 2.0)
 
   def drop(%{active_pento: nil} = board), do: board
+
   def drop(%{active_pento: pento} = board) do
     board
     |> Map.put(:active_pento, nil)
@@ -90,6 +93,7 @@ defmodule Pento.Game.Board do
   end
 
   def legal_drop?(%{active_pento: pento}) when is_nil(pento), do: false
+
   def legal_drop?(%{active_pento: pento, points: board_points} = board) do
     points_on_board =
       Pentomino.to_shape(pento).points

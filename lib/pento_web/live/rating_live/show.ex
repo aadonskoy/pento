@@ -7,6 +7,7 @@ defmodule PentoWeb.RatingLive.Show do
       filled_stars(assigns.rating.stars)
       |> Enum.concat(unfilled_stars(assigns.rating.stars))
       |> Enum.join(" ")
+
     ~H"""
     <div>
       <h4>

@@ -50,6 +50,7 @@ defmodule PentoWeb.SearchLive do
 
   def mount(_params, _sessions, socket) do
     changeset = Product.search_sku_changeset(%Product{}, %{})
+
     {
       :ok,
       socket
@@ -63,6 +64,7 @@ defmodule PentoWeb.SearchLive do
       %Product{}
       |> Product.search_sku_changeset(product_params)
       |> Map.put(:action, :insert)
+
     {
       :noreply,
       assign(socket, %{changeset: changeset})
@@ -73,19 +75,23 @@ defmodule PentoWeb.SearchLive do
     changeset =
       %Product{}
       |> Product.search_sku_changeset(product_params)
+
     case changeset.valid? do
-      true -> {
-        :noreply,
-        socket
-        |> assign(%{changeset: changeset})
-        |> assign(%{product: Pento.Catalog.get_by_sku(sku)})
-      }
-      false -> {
-        :noreply,
-        socket
-        |> assign(%{changeset: changeset})
-        |> assign(%{product: %Product{}})
-      }
+      true ->
+        {
+          :noreply,
+          socket
+          |> assign(%{changeset: changeset})
+          |> assign(%{product: Pento.Catalog.get_by_sku(sku)})
+        }
+
+      false ->
+        {
+          :noreply,
+          socket
+          |> assign(%{changeset: changeset})
+          |> assign(%{product: %Product{}})
+        }
     end
   end
 end

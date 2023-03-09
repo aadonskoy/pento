@@ -118,9 +118,9 @@ defmodule Pento.Catalog do
   end
 
   def products_with_average_ratings(%{
-    age_group_filter: age_group_filter,
-    gender_group_filter: gender_group_filter
-  }) do
+        age_group_filter: age_group_filter,
+        gender_group_filter: gender_group_filter
+      }) do
     Product.Query.with_average_ratings()
     |> Product.Query.join_users()
     |> Product.Query.join_demographics()
@@ -131,6 +131,6 @@ defmodule Pento.Catalog do
 
   def products_with_zero_ratings do
     Product.Query.with_zero_ratings()
-    |> Repo.all
+    |> Repo.all()
   end
 end

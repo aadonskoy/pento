@@ -32,7 +32,6 @@ defmodule Pento.CatalogFixtures do
     "/uploads/#{image_name}"
   end
 
-
   def upload_image_fixture() do
     image = %Plug.Upload{path: "test/support/fixtures/test_image.png", filename: "test_image.png"}
     image

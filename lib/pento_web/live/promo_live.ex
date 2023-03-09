@@ -5,32 +5,32 @@ defmodule PentoWeb.PromoLive do
 
   def mount(_params, _session, socket) do
     {:ok,
-      socket
-      |> assign_recipient()
-      |> assign_changeset()}
+     socket
+     |> assign_recipient()
+     |> assign_changeset()}
   end
 
   def handle_event(
-    "validate",
-    %{"recipient" => recipient_params},
-    %{assigns: %{recipient: recipient}} = socket
-  ) do
+        "validate",
+        %{"recipient" => recipient_params},
+        %{assigns: %{recipient: recipient}} = socket
+      ) do
     changeset =
       recipient
       |> Promo.change_recipient(recipient_params)
       |> Map.put(:action, :validate)
 
     {:noreply,
-    socket
-    |> put_flash(:error, nil)
-    |> assign(:changeset, changeset)}
+     socket
+     |> put_flash(:error, nil)
+     |> assign(:changeset, changeset)}
   end
 
   def handle_event(
-    "save",
-    %{"recipient" => recipient_params},
-    %{assigns: %{recipient: recipient}} = socket
-  ) do
+        "save",
+        %{"recipient" => recipient_params},
+        %{assigns: %{recipient: recipient}} = socket
+      ) do
     changeset =
       recipient
       |> Promo.change_recipient(recipient_params)
@@ -40,15 +40,15 @@ defmodule PentoWeb.PromoLive do
       Promo.send_promo(recipient, recipient_params)
 
       {:noreply,
-      socket
-      |> put_flash(:info, "Promo has been sent")
-      |> assign_recipient()
-      |> assign_changeset()}
+       socket
+       |> put_flash(:info, "Promo has been sent")
+       |> assign_recipient()
+       |> assign_changeset()}
     else
       {:noreply,
-      socket
-      |> put_flash(:error, "Error with sending")
-      |> assign(:changeset, changeset)}
+       socket
+       |> put_flash(:error, "Error with sending")
+       |> assign(:changeset, changeset)}
     end
   end
 

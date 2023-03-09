@@ -16,6 +16,7 @@ defmodule Pento.Game do
   def maybe_move(%{active_pento: p} = board, _m) when is_nil(p) do
     {:ok, board}
   end
+
   def maybe_move(board, move) do
     new_pento = move_fn(move).(board.active_pento)
     new_board = %{board | active_pento: new_pento}

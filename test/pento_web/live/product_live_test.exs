@@ -5,8 +5,18 @@ defmodule PentoWeb.ProductLiveTest do
   import Pento.AccountsFixtures
   import Pento.CatalogFixtures
 
-  @create_attrs %{description: "some description", name: "some name", sku: 2_345_642, unit_price: 120.5}
-  @update_attrs %{description: "some updated description", name: "some updated name", sku: 6_534_243, unit_price: 456.7}
+  @create_attrs %{
+    description: "some description",
+    name: "some name",
+    sku: 2_345_642,
+    unit_price: 120.5
+  }
+  @update_attrs %{
+    description: "some updated description",
+    name: "some updated name",
+    sku: 6_534_243,
+    unit_price: 456.7
+  }
   @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
 
   setup(%{conn: conn}) do
@@ -37,11 +47,14 @@ defmodule PentoWeb.ProductLiveTest do
 
       image =
         index_live
-        |> file_input("#product-form", :image, [%{
-          name: "test_image.png",
-          content: File.read!("test/support/fixtures/test_image.png"),
-          type: "image/png"
-        }])
+        |> file_input("#product-form", :image, [
+          %{
+            name: "test_image.png",
+            content: File.read!("test/support/fixtures/test_image.png"),
+            type: "image/png"
+          }
+        ])
+
       assert render_upload(image, "test_image.png") =~ " uploaded"
 
       {:ok, _, html} =
@@ -68,11 +81,14 @@ defmodule PentoWeb.ProductLiveTest do
 
       image =
         index_live
-        |> file_input("#product-form", :image, [%{
-          name: "test_image.png",
-          content: File.read!("test/support/fixtures/test_image.png"),
-          type: "image/png"
-        }])
+        |> file_input("#product-form", :image, [
+          %{
+            name: "test_image.png",
+            content: File.read!("test/support/fixtures/test_image.png"),
+            type: "image/png"
+          }
+        ])
+
       assert render_upload(image, "test_image.png") =~ " uploaded"
 
       {:ok, _, html} =
@@ -115,11 +131,14 @@ defmodule PentoWeb.ProductLiveTest do
 
       image =
         show_live
-        |> file_input("#product-form", :image, [%{
-          name: "test_image.png",
-          content: File.read!("test/support/fixtures/test_image.png"),
-          type: "image/png"
-        }])
+        |> file_input("#product-form", :image, [
+          %{
+            name: "test_image.png",
+            content: File.read!("test/support/fixtures/test_image.png"),
+            type: "image/png"
+          }
+        ])
+
       assert render_upload(image, "test_image.png") =~ " uploaded"
 
       {:ok, _, html} =

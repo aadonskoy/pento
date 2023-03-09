@@ -21,7 +21,7 @@ defmodule PentoWeb.WrongLive do
   end
 
   def time() do
-    DateTime.utc_now |> to_string()
+    DateTime.utc_now() |> to_string()
   end
 
   def mount(_params, session, socket) do
@@ -39,20 +39,21 @@ defmodule PentoWeb.WrongLive do
   end
 
   def handle_event("guess", %{"number" => guess} = _data, socket) do
-    socket = if Integer.to_string(socket.assigns.num) == guess do
-      assign(
-        socket,
-        num: :rand.uniform(10),
-        score: socket.assigns.score + 1,
-        message: "Your guess: #{guess}. Correct! Guessed is changed."
-      )
-    else
-      assign(
-        socket,
-        score: socket.assigns.score - 1,
-        message: "Your guess: #{guess}. Wrong. Guess again."
-      )
-    end
+    socket =
+      if Integer.to_string(socket.assigns.num) == guess do
+        assign(
+          socket,
+          num: :rand.uniform(10),
+          score: socket.assigns.score + 1,
+          message: "Your guess: #{guess}. Correct! Guessed is changed."
+        )
+      else
+        assign(
+          socket,
+          score: socket.assigns.score - 1,
+          message: "Your guess: #{guess}. Wrong. Guess again."
+        )
+      end
 
     {
       :noreply,

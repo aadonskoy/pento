@@ -17,6 +17,7 @@ defmodule PentoWeb.Pento.Point do
       />
     """
   end
+
   defp convert(i) do
     (i - 1) * @width + 2 * @width
   end

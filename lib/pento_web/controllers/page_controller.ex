@@ -5,6 +5,7 @@ defmodule PentoWeb.PageController do
     if conn.assigns.current_user do
       redirect(conn, to: Routes.wrong_path(conn, :index))
     end
+
     render(conn, "index.html")
   end
 end
