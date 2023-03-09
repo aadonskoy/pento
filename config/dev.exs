@@ -4,6 +4,7 @@ import Config
 config :pento, Pento.Repo,
   hostname: "localhost",
   database: "pento_dev",
+  password: System.get_env("POSTGRES_PASSWORD") || "",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
